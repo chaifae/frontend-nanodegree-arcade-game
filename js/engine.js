@@ -104,6 +104,8 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+        ctx.clearRect(0, 0, 505, 606);
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -152,7 +154,13 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        allPowerUps.forEach(function(powerUp) {
+            powerUp.render();
+        });
+
         player.render();
+
+        drawScore();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -172,7 +180,12 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+        'images/Star.png',
     ]);
     Resources.onReady(init);
 
