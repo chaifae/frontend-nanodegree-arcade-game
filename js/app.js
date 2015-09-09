@@ -16,13 +16,13 @@ var score = 0;
 // http://stackoverflow.com/questions/4959975/generate-random-value-between-two-numbers-in-javascript
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
 
 // Draws the score in the top left corner
 function drawScore() {
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 20);
-};
+}
 
 // Class that stores hitbox information for collisions.
 var Rect = function(x, y, width, height) {
@@ -58,7 +58,7 @@ PowerUp.prototype.initialize = function() {
         this.y = randomNumber(1, 4) * blockHeight - 10;
 
         var foundInList = false;
-        for (powerUp of allPowerUps) {
+        for (var powerUp of allPowerUps) {
             if (this != powerUp && this.x === powerUp.x && this.y === powerUp.y) {
                 foundInList = true;
                 break;
@@ -142,8 +142,8 @@ var Player = function() {
 // on the game board and reacts based on what was hit
 Player.prototype.update = function() {
     var playerCol = this.getActualRect();
-    if (allEnemies != null) {
-        for (enemy of allEnemies) {
+    if (allEnemies !== null) {
+        for (var enemy of allEnemies) {
             if (enemy === null) {
                 continue;
             }
@@ -154,13 +154,13 @@ Player.prototype.update = function() {
             }
         }
     }
-    for (powerUp of allPowerUps) {
+    for (var powerUp of allPowerUps) {
         if (powerUp === null) {
             continue;
         }
         var powerUpCol = powerUp.getActualRect();
         if (playerCol.intersects(powerUpCol)) {
-            allPowerUps.splice(allPowerUps.indexOf(powerUp), 1)
+            allPowerUps.splice(allPowerUps.indexOf(powerUp), 1);
             score += 5;
         }
     }
@@ -205,19 +205,19 @@ Player.prototype.reset = function(type) {
 Player.prototype.handleInput = function(key) {
     if (key === 'left' && this.x > leftEdge) {
         this.x = this.x - blockWidth;
-    };
+    }
     if (key === 'right' && this.x < rightEdge) {
         this.x = this.x + blockWidth;
-    };
+    }
     if (key === 'up' && this.y > topEdge) {
         this.y = this.y - blockHeight;
-    };
+    }
     if (key === 'down' && this.y < bottomEdge) {
         this.y = this.y + blockHeight;
-    };
+    }
     if (key === 'up' && this.y === topEdge) {
         this.reset('win');
-    };
+    }
 };
 
 
@@ -228,7 +228,7 @@ var allEnemies = [];
 var player = new Player();
 
 // At random intervals, generate a new enemy
-setInterval(function() {allEnemies.push(new Enemy())}, randomNumber(1.5, 3) * 1000);
+setInterval(function() {allEnemies.push(new Enemy());}, randomNumber(1.5, 3) * 1000);
 
 // Start the game with three stars
 var allPowerUps = [new PowerUp(), new PowerUp(), new PowerUp()];
